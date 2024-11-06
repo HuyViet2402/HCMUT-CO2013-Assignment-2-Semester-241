@@ -25,14 +25,14 @@ CREATE TABLE Author(
 -- Customer --
 CREATE TABLE Customer(
 	Customer_ID NUMERIC(10,0) NOT NULL PRIMARY KEY,
-	Money_spent NUMERIC(15,3) NOT NULL CHECK(Money_spent >= 0),
+	Money_spent NUMERIC(15,3) NOT NULL CHECK(Money_spent >= 0) DEFAULT 0,
 	FOREIGN KEY (Customer_ID) REFERENCES Users(Users_ID) ON DELETE CASCADE
 );
 
 -- Order --
 CREATE TABLE Orders(
 	Order_ID NUMERIC(13,0) NOT NULL PRIMARY KEY,
-	Total_money NUMERIC(15,3) NOT NULL CHECK(Total_money >= 0),
+	Total_money NUMERIC(15,3) NOT NULL CHECK(Total_money >= 0) DEFAULT 0,
 	Order_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 	Customer_ID NUMERIC(10,0) NOT NULL,
 	FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) ON DELETE CASCADE
@@ -72,7 +72,7 @@ CREATE TABLE Order_item(
 	PRIMARY KEY(Order_ID, Book_ID),
 	
 	Quantity NUMERIC CHECK(Quantity > 0),
-	Discount NUMERIC(3,-2) CHECK(Discount >= 0 and Discount <= 1),
+	Discount NUMERIC(3, 2) CHECK(Discount >= 0 and Discount <= 1),
 	Review_ID NUMERIC(13,0),
 	
 	FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID) ON DELETE CASCADE,
