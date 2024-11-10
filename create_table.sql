@@ -3,7 +3,7 @@ CREATE TABLE Users(
 	Users_ID NUMERIC(10,0) NOT NULL PRIMARY KEY,
 	Email TEXT NOT NULL UNIQUE,
 	Phone_number NUMERIC(10) UNIQUE,
-	User_name TEXT NOT NULL UNIQUE,
+	User_name TEXT NOT NULL,
 	Passwords TEXT NOT NULL
 );
 -- Report --

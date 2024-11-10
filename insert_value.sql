@@ -22,14 +22,14 @@ VALUES
 -- Add Customer --
 INSERT INTO customer(Customer_ID, Money_spent)
 VALUES
-	(3, 510000),
-	(4, 100000),
-	(5, 312500),
-	(6, 360000),
-	(7, 440000),
-	(8, 19000),
-	(9, 300000),
-	(10, 150000);
+	(3, 0),
+	(4, 0),
+	(5, 0),
+	(6, 0),
+	(7, 0),
+	(8, 0),
+	(9, 0),
+	(10, 0);
 
 -- Add Publisher--
 INSERT INTO publisher(Publisher_id, Publisher_name, Address)
