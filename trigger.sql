@@ -24,7 +24,8 @@ $$
 DECLARE
    sum_money NUMERIC(15,3);
 BEGIN	
-	sum_money = NEW.Quantity * ((1 - NEW.Discount) * (SELECT Price FROM Book  WHERE Book_ID = NEW.Book_ID));
+	sum_money = NEW.Quantity * ((1 - NEW.Discount) 
+				* (SELECT Price FROM Book  WHERE Book_ID = NEW.Book_ID));
 
 	UPDATE orders
 		SET Total_money = Total_money + sum_money
@@ -32,7 +33,8 @@ BEGIN
 
 	UPDATE customer
 		SET Money_spent = Money_spent + sum_money
-		WHERE Customer_ID = (SELECT Customer_ID FROM orders WHERE NEW.Order_ID = Order_ID);
+		WHERE Customer_ID = (SELECT Customer_ID FROM orders 
+							WHERE NEW.Order_ID = Order_ID);
 	RETURN NEW;
 END;
 $$;
