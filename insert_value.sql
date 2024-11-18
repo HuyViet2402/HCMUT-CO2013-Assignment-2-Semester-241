@@ -83,12 +83,12 @@ VALUES
 	(108, 1000000000014, 4, 0.25),
     (109, 1000000000020, 1, 0.00);
 	
-INSERT INTO Review(review_id, review_description, review_date, stars)
+INSERT INTO Review(review_description, review_date, stars)
 VALUES
-	(1, 'Good', '2024-11-17', 5),
-	(2, 'Worst book ever', '2024-11-25', 1),
-	(3, 'Good book bad delivery', '2024-12-5', 3),
-	(4, 'PERRRFECTTT', '2024-12-19', 5);
+	('Good', '2024-11-17', 5),
+	('Worst book ever', '2024-11-25', 1),
+	('Good book bad delivery', '2024-12-5', 3),
+	('PERRRFECTTT', '2024-12-19', 5);
 
 INSERT INTO Writes(Book_ID, Author_ID)
 VALUES

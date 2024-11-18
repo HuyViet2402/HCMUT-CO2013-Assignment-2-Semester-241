@@ -1,6 +1,6 @@
 -- Users --
 CREATE TABLE Users(
-	Users_ID NUMERIC(10,0) NOT NULL PRIMARY KEY,
+	Users_ID bigserial PRIMARY KEY,
 	Email TEXT NOT NULL UNIQUE,
 	Phone_number NUMERIC(10) UNIQUE,
 	User_name TEXT NOT NULL,
@@ -8,66 +8,66 @@ CREATE TABLE Users(
 );
 -- Report --
 CREATE TABLE Report(
-	Report_ID NUMERIC(10,0) NOT NULL PRIMARY KEY,
+	Report_ID bigserial PRIMARY KEY,
 	Report_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 	Description TEXT,
 	Title TEXT NOT NULL,
-	Users_ID NUMERIC(10,0) NOT NULL,
+	Users_ID bigserial,
 	FOREIGN KEY (Users_ID) REFERENCES Users(Users_ID) ON DELETE CASCADE
 );
 -- Author --
 CREATE TABLE Author(
-	Author_ID NUMERIC(10,0) NOT NULL PRIMARY KEY,
+	Author_ID bigserial PRIMARY KEY,
 	Number_of_books NUMERIC(5) NOT NULL CHECK(Number_of_books >= 1),
 	FOREIGN KEY (Author_ID) REFERENCES Users(Users_ID) ON DELETE CASCADE
 );
 
 -- Customer --
 CREATE TABLE Customer(
-	Customer_ID NUMERIC(10,0) NOT NULL PRIMARY KEY,
+	Customer_ID bigserial PRIMARY KEY,
 	Money_spent NUMERIC(15,3) NOT NULL CHECK(Money_spent >= 0) DEFAULT 0,
 	FOREIGN KEY (Customer_ID) REFERENCES Users(Users_ID) ON DELETE CASCADE
 );
 
 -- Order --
 CREATE TABLE Orders(
-	Order_ID NUMERIC(13,0) NOT NULL PRIMARY KEY,
+	Order_ID bigserial PRIMARY KEY,
 	Total_money NUMERIC(15,3) NOT NULL CHECK(Total_money >= 0) DEFAULT 0,
 	Order_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-	Customer_ID NUMERIC(10,0) NOT NULL,
+	Customer_ID bigserial,
 	FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID) ON DELETE CASCADE
 );
 
 -- Publisher --
 CREATE TABLE Publisher(
-	Publisher_ID NUMERIC(6,0) NOT NULL PRIMARY KEY,
+	Publisher_ID bigserial PRIMARY KEY,
 	Publisher_name TEXT NOT NULL,
 	Address TEXT
 );
 
 -- Book --
 CREATE TABLE Book(
-	Book_ID NUMERIC(13,0) PRIMARY KEY,
+	Book_ID bigserial PRIMARY KEY,
 	Genre TEXT,
 	Price NUMERIC(15,3) NOT NULL CHECK(Price >= 0),
 	Title TEXT NOT NULL,
 	Publish_date DATE NOT NULL,
-	Publisher_ID NUMERIC(6,0),
+	Publisher_ID bigserial,
 	Conditions TEXT NOT NULL,
 	
 	FOREIGN KEY (Publisher_ID) REFERENCES Publisher(Publisher_ID) ON DELETE SET NULL
 );
 -- Review --
 CREATE TABLE Review (
-	Review_ID NUMERIC(13,0) PRIMARY KEY,
+	Review_ID bigserial PRIMARY KEY,
 	Review_description TEXT,
 	Review_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 	Stars INT NOT NULL CHECK (Stars >= 0 AND Stars <= 5)
 );
 -- Order Item--
 CREATE TABLE Order_item(
-	Order_ID NUMERIC(13,0) NOT NULL,
-	Book_ID NUMERIC(13,0) NOT NULL,
+	Order_ID bigserial,
+	Book_ID bigserial,
 
 	PRIMARY KEY(Order_ID, Book_ID),
 	
@@ -81,8 +81,8 @@ CREATE TABLE Order_item(
 
 -- Writes --
 CREATE TABLE Writes (
-	Book_ID NUMERIC(13,0),
-	Author_ID NUMERIC(10,0),
+	Book_ID bigserial,
+	Author_ID bigserial,
 
 	PRIMARY KEY(Author_ID, Book_ID),
 	FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID) ON DELETE CASCADE,
